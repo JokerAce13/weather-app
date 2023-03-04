@@ -7,7 +7,7 @@ export function getPeriodTimeTemplate(config, tabPanelIndex, weatherIndex){
     $tabPanel.append($atmosphericVar)
 
     return `
-    <li class="dayWeather-item ${ weatherIndex === 0 ? 'is-selected' : '' } ">
+    <li class="dayWeather-item ${ weatherIndex === 0 ? 'is-selected' : '' } " data-weatherItem="tp${tabPanelIndex}-w${weatherIndex}">
         <span class="dayWeather-time">${config.date}</span>
         <img class="dayWeather-icon" height="48" width="48" src="https://openweathermap.org/img/wn/${config.icon}@2x.png" alt="${config.description}" rain="">
         <span class="dayWeather-temp">${config.temp}</span>

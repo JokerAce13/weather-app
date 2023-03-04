@@ -15,11 +15,7 @@ export function getCurrentPosition(options = defaultOptions){
     //Una promesa recibe un callback o función, la cual recibe 2 parametros: resolve en caso de exito y reject en caso de fallo
     return new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition((position) => {
-            console.log(position);
-            // const lat = position.coords.latitude;
-            // const lon = position.coords.longitude;
             resolve(position);
-            console.log('DURANTE');
         }, () => {
             reject('No hemos logrado obtener la geolocalización, revisar si brindado los permisos necesarios')
         }, options);

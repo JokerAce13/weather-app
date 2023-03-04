@@ -1,4 +1,3 @@
-//import weather from '../data/current-weather.js'
 import { formatDate, formatTemp } from './utils/format-data.js'
 import { weatherConditionCodes } from './constants.js'
 import { getLatLon } from './geolocation.js'
@@ -58,42 +57,17 @@ function configCurrentWeather(weather){
     //background
     const sunriseTime = new Date(weather.sys.sunrise * 1000)
     const sunsetTime = new Date(weather.sys.sunset * 1000)
-    // const $app = document.getElementById('app');
     const conditionCode = String(weather.weather[0].id).charAt(0);
     setBackground($app, solarStatus(sunriseTime, sunsetTime), conditionCode);
 }
 
 export default async function currentWeather() {
-    console.log('ANTES');
-    // getCurrentPosition(); //Antes de implementar promesa
-
-    // Utilizando solo promesas directamente
-    // getCurrentPosition()
-    // .then((data) => {
-    //     console.log('Exito!!', data);
-    // })
-    // .catch((message) => {
-    //     console.log('Fallo!! T_T: '+message);
-    // });
-
-    //Utilizando programación asincrona
-    // try {
-    //     const { lat, lon } = await getLatLon();
-    //     console.log(lat, lon);
-    // } catch (error) {
-    //     console.log(error);
-    // }
-
     //Utilizando programación asincrona y un objeto de respuesta
     const { lat, lon, isError } = await getLatLon();
     if (isError) return console.log('Ha ocurrido un error');
-    console.log(lat, lon);
 
-
-    console.log('DESPUES');
     const { isError: currentWeatherError, data: weather } = await getCurrentWeather(lat, lon);
     if (currentWeatherError) return console.log('Ha ocurrido un error!')
 
     configCurrentWeather(weather);
-    console.log(weather);
 }

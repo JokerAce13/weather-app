@@ -41,7 +41,4 @@ function handleSelectedTabClick(event) {
     const $tabPanelCurrentSelected = document.querySelector('.tabPanel:not([hidden])')
     $tabPanel.hidden = false
     $tabPanelCurrentSelected.hidden = true
-
-    // $tabPanel.ariaSelected = true
-    // $tabPanelCurrentSelected.ariaSelected = false
 }

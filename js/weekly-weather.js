@@ -25,7 +25,6 @@ function createTabPanel(id){
 }
 
 function configWeeklyWeather(weekList) {
-    //const $container = document.querySelector('.weeklyWeather')
     const $container = document.querySelector('.tabs')
     weekList.forEach((day, tabPanelIndex) => {
         const $tabPanel = createTabPanel(tabPanelIndex)
@@ -45,7 +44,6 @@ export default async function weeklyWeather() {
 
     const { lat, lon, isError } = await getLatLon();
     if (isError) return console.log('Ha ocurrido un error');
-    console.log(lat, lon);
 
     const { isError: weeklyWeatherError, data: weather } = await getWeeklyWeather(lat, lon);
     if (weeklyWeatherError) return console.log('Ha ocurrido un error obteniendo el pronostico del clima!')
@@ -65,8 +63,19 @@ export default async function weeklyWeather() {
         const $parentTarget = $dayWeatherSelected.parentElement
         const $dayWeatherActive = $parentTarget.querySelector('.dayWeather-item.is-selected')
 
-        $dayWeatherActive.classList.remove('is-selected');
-        $dayWeatherSelected.classList.add('is-selected');
+        const partialId = $dayWeatherSelected.dataset.weatheritem
+        const $atmosphericVarSelected = document.getElementById(`atmosphericVar-${partialId}`)
+        const $grandParentTarget = $parentTarget.parentElement
+        const $atmosphericVarActive = $grandParentTarget.querySelector('.dayWeather-atmosphericVar:not(.is-hidden)')
+
+        if ($dayWeatherActive !== $dayWeatherSelected) {
+            $dayWeatherActive.classList.remove('is-selected');
+            $dayWeatherSelected.classList.toggle('is-selected');
+
+            $atmosphericVarSelected.classList.remove('is-hidden');
+            $atmosphericVarActive.classList.toggle('is-hidden');
+        }
+
     }
 
 }
